@@ -1,4 +1,4 @@
-class CreateInstrumentAccessories < ActiveRecord::Migration
+class CreateInstrumentAccessories < ActiveRecord::Migration[5.2]
   def change
     create_table :instrument_accessories do |t|
       t.integer :instrument_id
