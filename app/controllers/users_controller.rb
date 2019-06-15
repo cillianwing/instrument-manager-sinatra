@@ -1,5 +1,32 @@
 class UsersController < ApplicationController
 
+  get '/signup' do
+    if !logged_in?
+      erb :"/users/new"
+    else
+      erb :"/users/index"
+    end
+  end
+
+  post '/signup' do
+    
+  end
+
+  get '/login' do
+    if !logged_in?
+      erb :'/users/login'
+    else
+      erb :"/users/index"
+    end
+  end
+
+  post '/login' do
+
+  end
+
+end
+
+=begin
   # GET: /users
   get "/users" do
     erb :"/users/index.html"
@@ -34,4 +61,4 @@ class UsersController < ApplicationController
   delete "/users/:id/delete" do
     redirect "/users"
   end
-end
+=end

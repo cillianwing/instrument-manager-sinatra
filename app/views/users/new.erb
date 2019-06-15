@@ -1,1 +1,10 @@
-<h1>Insert the form to create a new instance of your model.</h1>
+<h2>Please sign up below. All fields are required.</h2>
+
+<form method="POST" action="/signup">
+  <input type="text" id="username" name="username" placeholder="Username" required /><br />
+  <input type="email" id="email" name="email" placeholder="Email" required /><br />
+  <input type="password" id="password" name="password" placeholder="Password" /><br /><br />
+  <input type="submit" value="Sign Up" />
+</form>
+<br />
+<p>Already have an account? <a href="/login">Sign in here</a>.</p>
