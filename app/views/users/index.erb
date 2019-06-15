@@ -1,1 +1,16 @@
-<h1>This is the Model's index page.</h1>
+<h2>Below are your instruments and accessories</h2>
+
+<h3>Instruments</h3>
+<% @instruments.each do |instrument| %>
+  <li><%= instrument.type_of %></li>
+<% end %><br />
+
+<h3>Accessories</h3>
+<% @accessories.each do |accessory| %>
+  <li><%= accessory.type_of %></li>
+<% end %><br />
+
+<p><a href="/new_instrument">Add New Instrument</a></p>
+<p><a href="/new_accessory">Add New Accessory</a></p>
+<br />
+<a href="/logout">Logout</a>

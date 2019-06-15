@@ -1,27 +1,58 @@
+require 'sinatra/base'
+require 'rack-flash'
+
 class UsersController < ApplicationController
+  use Rack::Flash
 
   get '/signup' do
     if !logged_in?
       erb :"/users/new"
     else
-      erb :"/users/index"
+      redirect "/login"
     end
   end
 
   post '/signup' do
-    
+    if User.find_by(username: params[:username])
+      #flash message saying username already exists?
+      redirect '/login'
+    else
+      #flash message saying signup successful
+      @user = User.create(username: params[:username], email: params[:email], password_digest: params[:password])
+      session[:user_id] = @user.id
+      @user.save
+      redirect "/users/#{@user.id}"
+    end
   end
 
   get '/login' do
     if !logged_in?
-      erb :'/users/login'
+      erb :"/users/login"
     else
-      erb :"/users/index"
+      erb :"/users/show"
     end
   end
 
   post '/login' do
 
+  end
+
+  get '/users/:id' do
+    if !logged_in?
+      redirect '/login'
+    else
+      @user = User.find_by_id(session[:user_id])
+      @instruments = @user.instruments
+      @accessories = @user.accessories
+      erb :"users/index"
+    end
+  end
+
+  get '/logout' do
+    if logged_in?
+      session.destroy
+      redirect '/'
+    end
   end
 
 end
