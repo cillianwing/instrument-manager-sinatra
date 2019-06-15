@@ -18,7 +18,7 @@ class UsersController < ApplicationController
       redirect '/login'
     else
       #flash message saying signup successful
-      @user = User.create(username: params[:username], email: params[:email], password_digest: params[:password])
+      @user = User.create(username: params[:username], email: params[:email], password: params[:password])
       session[:user_id] = @user.id
       @user.save
       redirect "/users/#{@user.id}"
@@ -29,12 +29,20 @@ class UsersController < ApplicationController
     if !logged_in?
       erb :"/users/login"
     else
-      erb :"/users/show"
+      @user = User.find_by_id(session[:user_id])
+      redirect "/users/#{@user.id}"
     end
   end
 
   post '/login' do
-
+    user = User.find_by(username: params[:username])
+    if user && user.authenticate(params[:password])
+      session[:user_id] = user.id
+      redirect "/users/#{user.id}"
+    else
+      #flash message saying username not found or incorrect password
+      redirect '/login'
+    end
   end
 
   get '/users/:id' do
@@ -52,6 +60,8 @@ class UsersController < ApplicationController
     if logged_in?
       session.destroy
       redirect '/'
+    else
+      redirect '/login'
     end
   end
 
