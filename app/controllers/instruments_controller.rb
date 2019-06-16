@@ -59,7 +59,7 @@ class InstrumentsController < ApplicationController
     if logged_in?
       @instrument = current_user.instruments.find_by(params[:id])
       if @instrument && @instrument.user_id == current_user.id
-        if @instrument.update(params)
+        if @instrument.update(status: params[:status], status_comments: params[:status_comments])
           redirect "/instruments/#{@instrument.id}"
         else
           redirect "/instruments/#{@instrument.id}/edit"
