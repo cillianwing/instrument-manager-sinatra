@@ -5,7 +5,7 @@
   <label>Item List</label>
     <select name="item_name">
       <% @items.each do |item| %>
-        <option value="<%= item %>"><%= item %></option>
+        <option value="<%= item[:name] %>"><%= item[:name] %></option>
       <% end %>
     </select><br /><br />
   <input type="text" name="work" placeholder="Work Being Done:*" required /><br /><br />
@@ -15,7 +15,7 @@
   <% end %><br /><br />
 
   <input type="text" name="duration" placeholder="Duration (in days)*:" required /><br /><br />
-  <input type="date" name="start_date" placeholder="Start Date:*" required /><br /><br />
+  <label>Start Date: </label><input type="date" name="start_date" placeholder="Start Date:*" required /><br /><br />
   <input type="submit" value="Add New Repair" />
 </form>
 

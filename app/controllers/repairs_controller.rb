@@ -7,7 +7,7 @@ class RepairsController < ApplicationController
   get '/repairs' do
     if logged_in?
       @repairs = Repair.all
-      @user = User.find_by_id(session[:user_id])
+      @user = User.find_by_id(current_user.id)
       erb :'/repairs/index'
     else
       '/login'
@@ -19,9 +19,10 @@ class RepairsController < ApplicationController
       @statuses = ["Not Started", "In Progress", "Complete"]
       @user = User.find_by_id(session[:user_id])
       @instruments = @user.instruments
-      @items = @instruments.collect do |instrument|
-        if instrument.status == "Useable" || instrument.status == "Needs Repair"
-          "#{instrument.make} - #{instrument.model} (#{instrument.type_of})"
+      @items = []
+      @instruments.collect do |instrument|
+        if instrument.status != "In Repair"
+          @items << {name: "#{instrument.make} - #{instrument.model} (#{instrument.type_of})", instrument_id: instrument.id}
         end
       end
       erb :'/repairs/new'
@@ -32,7 +33,8 @@ class RepairsController < ApplicationController
 
   post '/repairs' do
     if logged_in?
-      @repair = current_user.repairs.create(params)
+      #binding.pry
+      @repair = current_user.repairs.build(params)
       if @repair.save
         redirect "/repairs/#{@repair.id}"
       else
