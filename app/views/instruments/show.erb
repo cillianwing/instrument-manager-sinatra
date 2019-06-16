@@ -1,1 +1,23 @@
-<h1>This is the show page for an individual instance of your model.</h1>
+<table style="width:100%">
+
+  <tr>
+    <th>Type</th>
+    <th>Make</th>
+    <th>Model</th>
+    <th>Status</th>
+    <th>Status Comments</th>
+  </tr>
+  <tr>
+    <td><%= @instrument.type_of %></td>
+    <td><%= @instrument.make %></td>
+    <td><%= @instrument.model %></td>
+    <td><%= @instrument.status %></td>
+    <td><%= @instrument.status_comments %></td>
+  </tr>
+
+</table><br />
+<p><a href="/instruments/:id/edit">Edit Instrument</a></p>
+<p><a href="/instruments/:id/delete">Delete Instrument</a></p>
+<p><a href="/instruments/new">Add Another Instrument</a></p>
+<p><a href="/instruments">View All Your Instruments</a></p>
+<p><a href='/logout'>Logout</a></p>

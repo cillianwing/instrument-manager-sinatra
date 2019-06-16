@@ -31,8 +31,7 @@ class InstrumentsController < ApplicationController
 
   get '/instruments/:id' do
     if logged_in?
-      @user = User.find_by_id(session[:user_id])
-      @instrument = Instrument.find_by(user_id: @user.id)
+      @instrument = Instrument.find_by(params[:id])
       erb :'/instruments/show'
     else
       redirect '/login'
