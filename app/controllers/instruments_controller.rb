@@ -27,7 +27,7 @@ class InstrumentsController < ApplicationController
     if logged_in?
       @instrument = current_user.instruments.create(params)
       if @instrument.save
-        redirect "/instruments/#{@instrument.id}"
+        redirect to "/instruments/#{@instrument.id}"
       else
         redirect '/instruments/new'
       end
@@ -38,7 +38,7 @@ class InstrumentsController < ApplicationController
 
   get '/instruments/:id' do
     if logged_in?
-      @instrument = current_user.instruments.find_by(params[:id])
+      @instrument = Instrument.find_by_id(params[:id])
       erb :'/instruments/show'
     else
       redirect '/login'
@@ -48,7 +48,7 @@ class InstrumentsController < ApplicationController
   get '/instruments/:id/edit' do
     if logged_in?
       @statuses = ["Usable", "Needs Repair", "In Repair"]
-      @instrument = current_user.instruments.find_by(params[:id])
+      @instrument = Instrument.find_by_id(params[:id])
       erb :'/instruments/edit'
     else
       redirect '/login'
@@ -57,10 +57,10 @@ class InstrumentsController < ApplicationController
 
   patch '/instruments/:id' do
     if logged_in?
-      @instrument = current_user.instruments.find_by(params[:id])
+      @instrument = Instrument.find_by_id(params[:id])
       if @instrument && @instrument.user_id == current_user.id
         if @instrument.update(status: params[:status], status_comments: params[:status_comments])
-          redirect "/instruments/#{@instrument.id}"
+          erb :'/instruments/show'
         else
           redirect "/instruments/#{@instrument.id}/edit"
         end
@@ -74,7 +74,7 @@ class InstrumentsController < ApplicationController
 
   get '/instruments/:id/delete' do
     if logged_in?
-      @instrument = current_user.instruments.find_by(params[:id])
+      @instrument = Instrument.find_by_id(params[:id])
       erb :'/instruments/delete'
     else
       redirect '/login'
@@ -83,7 +83,7 @@ class InstrumentsController < ApplicationController
 
   delete '/instruments/:id' do
     if logged_in?
-      @instrument = current_user.instruments.find_by(params[:id])
+      @instrument = Instrument.find_by_id(params[:id])
       if @instrument && @instrument.user_id == current_user.id
         @instrument.delete
       end

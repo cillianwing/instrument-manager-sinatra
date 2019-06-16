@@ -38,7 +38,7 @@ class AccessoriesController < ApplicationController
 
   get '/accessories/:id' do
     if logged_in?
-      @accessory = current_user.accessories.find_by(params[:id])
+      @accessory = Accessory.find_by_id(params[:id])
       erb :'/accessories/show'
     else
       redirect '/login'
@@ -48,7 +48,7 @@ class AccessoriesController < ApplicationController
   get '/accessories/:id/edit' do
     if logged_in?
       @statuses = ["Usable", "Needs Repair", "In Repair"]
-      @accessory = current_user.accessories.find_by(params[:id])
+      @accessory = Accessory.find_by_id(params[:id])
       erb :'/accessories/edit'
     else
       redirect '/login'
@@ -57,7 +57,7 @@ class AccessoriesController < ApplicationController
 
   patch '/accessories/:id' do
     if logged_in?
-      @accessory = current_user.accessories.find_by(params[:id])
+      @accessory = Accessory.find_by_id(params[:id])
       if @accessory && @accessory.user_id == current_user.id
         if @accessory.update(status: params[:status], status_comments: params[:status_comments])
           redirect "/accessories/#{@accessory.id}"
@@ -74,7 +74,7 @@ class AccessoriesController < ApplicationController
 
   get '/accessories/:id/delete' do
     if logged_in?
-      @accessory = current_user.accessories.find_by(params[:id])
+      @accessory = Accessory.find_by_id(params[:id])
       erb :'/accessories/delete'
     else
       redirect '/login'
@@ -83,7 +83,7 @@ class AccessoriesController < ApplicationController
 
   delete '/accessories/:id' do
     if logged_in?
-      @accessory = current_user.accessories.find_by(params[:id])
+      @accessory = Accessory.find_by_id(params[:id])
       if @accessory && @accessory.user_id == current_user.id
         @accessory.delete
       end
