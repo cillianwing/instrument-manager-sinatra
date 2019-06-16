@@ -1,1 +1,26 @@
-<h1>This is the show page for an individual instance of your model.</h1>
+<table style="width:100%">
+
+  <tr>
+    <th>Item Name</th>
+    <th>Work</th>
+    <th>Cost</th>
+    <th>Status</th>
+    <th>Duration</th>
+    <th>Start Date</th>
+  </tr>
+  <tr>
+    <td><%= @repair.item_name %></td>
+    <td><%= @repair.work %></td>
+    <td><%= @repair.cost %></td>
+    <td><%= @repair.status %></td>
+    <td><%= @repair.duration %></td>
+    <td><%= @repair.start_date %></td>
+  </tr>
+
+</table><br />
+<p><a href="/repairs/<%= @repair.id %>/complete">Complete Repair</a></p>
+<p><a href="/repairs/<%= @repair.id %>/edit">Edit Repair</a></p>
+<p><a href="/repairs/new">Add Another Repair</a></p>
+<p><a href="/repairs">View All Your Repairs</a></p>
+<p><a href='/users/<%= @repair.user_id =>'>Home</a></p>
+<p><a href='/logout'>Logout</a></p>

@@ -15,7 +15,7 @@ class InstrumentsController < ApplicationController
   end
 
   get '/instruments/new' do
-    @statuses = ["Usable", "Needs Repair", "In Repair"]
+    @statuses = ["Useable", "Needs Repair", "In Repair"]
     if logged_in?
       erb :'/instruments/new'
     else

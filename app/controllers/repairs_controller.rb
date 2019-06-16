@@ -7,22 +7,50 @@ class RepairsController < ApplicationController
   get '/repairs' do
     if logged_in?
       @repairs = Repair.all
+      @user = User.find_by_id(session[:user_id])
       erb :'/repairs/index'
     else
       '/login'
     end
   end
 
-  get '/repairs/news' do
-
+  get '/repairs/new' do
+    if logged_in?
+      @statuses = ["Not Started", "In Progress", "Complete"]
+      @user = User.find_by_id(session[:user_id])
+      @instruments = @user.instruments
+      @items = @instruments.collect do |instrument|
+        if instrument.status == "Useable" || instrument.status == "Needs Repair"
+          "#{instrument.make} - #{instrument.model} (#{instrument.type_of})"
+        end
+      end
+      erb :'/repairs/new'
+    else
+      redirect '/login'
+    end
   end
 
   post '/repairs' do
-
+    if logged_in?
+      @repair = Repair.create(params)
+      @repair.user_id = session[:user_id]
+      if @repair.save
+        redirect "/repairs/#{@repair.id}"
+      else
+        redirect '/repairs/new'
+      end
+    else
+      redirect '/login'
+    end
   end
 
   get '/repairs/:id' do
-
+    if logged_in?
+      @repair = Repair.find_by_id(params[:id])
+      erb :'/repairs/show'
+    else
+      redirect '/login'
+    end
   end
 
   get '/repairs/:id/edit' do
@@ -38,7 +66,7 @@ class RepairsController < ApplicationController
   end
 
   delete '/repairs/:id' do
-    
+
   end
 
 end

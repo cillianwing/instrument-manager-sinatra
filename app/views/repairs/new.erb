@@ -1,1 +1,23 @@
-<h1>Insert the form to create a new instance of your model.</h1>
+<h2>Please fill out the fields below to start a new repair.</h2>
+
+<form method="POST" action="/repairs">
+
+  <label>Item List</label>
+    <select name="item_name">
+      <% @items.each do |item| %>
+        <option value="<%= item %>"><%= item %></option>
+      <% end %>
+    </select><br /><br />
+  <input type="text" name="work" placeholder="Work Being Done:*" required /><br /><br />
+  <input type="number" name="cost" placeholder="Cost:*" required /><br /><br />
+  Status*: <% @statuses.each do |status| %>
+    <input type="radio" name="status" value="<%= status %>"><%= status %></input>
+  <% end %><br /><br />
+
+  <input type="text" name="duration" placeholder="Duration (in days)*:" required /><br /><br />
+  <input type="date" name="start_date" placeholder="Start Date:*" required /><br /><br />
+  <input type="submit" value="Add New Repair" />
+</form>
+
+<br />
+<p>Fields marked with (*) are required.</p>

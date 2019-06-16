@@ -15,7 +15,7 @@ class AccessoriesController < ApplicationController
   end
 
   get '/accessories/new' do
-    @statuses = ["Usable", "Needs Repair", "In Repair", "On Loan"]
+    @statuses = ["Useable", "Needs Repair", "In Repair", "On Loan"]
     if logged_in?
       erb :'/accessories/new'
     else
