@@ -7,6 +7,7 @@ end
 use Rack::MethodOverride
 
 run ApplicationController
+use RepairsController
 use AccessoriesController
 use InstrumentsController
 use UsersController

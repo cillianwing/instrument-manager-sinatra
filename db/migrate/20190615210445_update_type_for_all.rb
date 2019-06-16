@@ -1,4 +1,4 @@
-class UpdateTypeForAll < ActiveRecord::Migration
+class UpdateTypeForAll < ActiveRecord::Migration[5.2]
   def change
     remove_column :users, :type, :string
     add_column :users, :type_of, :string
