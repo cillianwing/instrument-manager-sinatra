@@ -1,37 +1,95 @@
+require 'sinatra/base'
+require 'rack-flash'
+
 class AccessoriesController < ApplicationController
+  use Rack::Flash
 
-  # GET: /accessories
-  get "/accessories" do
-    erb :"/accessories/index.html"
+  get '/accessories' do
+    if logged_in?
+      @user = User.find_by_id(session[:user_id])
+      @accessories = @user.accessories
+      erb :'/accessories/index'
+    else
+      redirect '/login'
+    end
   end
 
-  # GET: /accessories/new
-  get "/accessories/new" do
-    erb :"/accessories/new.html"
+  get '/accessories/new' do
+    @statuses = ["Usable", "Needs Repair", "In Repair"]
+    if logged_in?
+      erb :'/accessories/new'
+    else
+      redirect '/login'
+    end
   end
 
-  # POST: /accessories
-  post "/accessories" do
-    redirect "/accessories"
+  post '/accessories' do
+    if logged_in?
+      @accessory = current_user.accessories.create(params)
+      if @accessory.save
+        redirect "/accessories/#{@accessory.id}"
+      else
+        redirect '/accessories/new'
+      end
+    else
+      redirect '/login'
+    end
   end
 
-  # GET: /accessories/5
-  get "/accessories/:id" do
-    erb :"/accessories/show.html"
+  get '/accessories/:id' do
+    if logged_in?
+      @accessory = current_user.accessories.find_by(params[:id])
+      erb :'/accessories/show'
+    else
+      redirect '/login'
+    end
   end
 
-  # GET: /accessories/5/edit
-  get "/accessories/:id/edit" do
-    erb :"/accessories/edit.html"
+  get '/accessories/:id/edit' do
+    if logged_in?
+      @statuses = ["Usable", "Needs Repair", "In Repair"]
+      @accessory = current_user.accessories.find_by(params[:id])
+      erb :'/accessories/edit'
+    else
+      redirect '/login'
+    end
   end
 
-  # PATCH: /accessories/5
-  patch "/accessories/:id" do
-    redirect "/accessories/:id"
+  patch '/accessories/:id' do
+    if logged_in?
+      @accessory = current_user.accessories.find_by(params[:id])
+      if @accessory && @accessory.user_id == current_user.id
+        if @accessory.update(status: params[:status], status_comments: params[:status_comments])
+          redirect "/accessories/#{@accessory.id}"
+        else
+          redirect "/accessories/#{@accessory.id}/edit"
+        end
+      else
+        redirect '/accessories'
+      end
+    else
+      redirect '/login'
+    end
   end
 
-  # DELETE: /accessories/5/delete
-  delete "/accessories/:id/delete" do
-    redirect "/accessories"
+  get '/accessories/:id/delete' do
+    if logged_in?
+      @accessory = current_user.accessories.find_by(params[:id])
+      erb :'/accessories/delete'
+    else
+      redirect '/login'
+    end
+  end
+
+  delete '/accessories/:id' do
+    if logged_in?
+      @accessory = current_user.accessories.find_by(params[:id])
+      if @accessory && @accessory.user_id == current_user.id
+        @accessory.delete
+      end
+      redirect '/accessories'
+    else
+      redirect '/login'
+    end
   end
 end
