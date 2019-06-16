@@ -14,7 +14,7 @@ class InstrumentsController < ApplicationController
     end
   end
 
-  get '/new_instrument' do
+  get '/instruments/new' do
     @statuses = ["Usable", "Needs Repair", "In Repair"]
     if logged_in?
       erb :'/instruments/new'
@@ -24,15 +24,49 @@ class InstrumentsController < ApplicationController
   end
 
   post '/instruments' do
-    @instrument = Instrument.create(params)
-    @instrument.user_id = session[:user_id]
-    redirect "/instruments/#{@instrument.id}"
+    if logged_in?
+      @instrument = current_user.instruments.create(params)
+      if @instrument.save
+        redirect "/instruments/#{@instrument.id}"
+      else
+        redirect '/instruments/new'
+      end
+    else
+      redirect '/login'
+    end
   end
 
   get '/instruments/:id' do
     if logged_in?
       @instrument = Instrument.find_by(params[:id])
       erb :'/instruments/show'
+    else
+      redirect '/login'
+    end
+  end
+
+  get '/instruments/:id/edit' do
+    if logged_in?
+      @statuses = ["Usable", "Needs Repair", "In Repair"]
+      @instrument = Instrument.find_by(params[:id])
+      erb :'/instruments/edit'
+    else
+      redirect '/login'
+    end
+  end
+
+  patch '/instruments/:id' do
+    if logged_in?
+      @instrument = Instrument.find_by(params[:id])
+      if @instrument && @instrument.user_id == current_user.id
+        if @instrument.update(params)
+          redirect "/instruments/#{@instrument.id}"
+        else
+          redirect "/instruments/#{@instrument.id}/edit"
+        end
+      else
+        redirect '/instruments'
+      end
     else
       redirect '/login'
     end

@@ -1,1 +1,27 @@
-<h1>This is the Model's index page.</h1>
+<table style="width:100%">
+
+  <tr>
+    <th>Type</th>
+    <th>Make</th>
+    <th>Model</th>
+    <th>Status</th>
+    <th>Status Comments</th>
+    <th>Options</th>
+  </tr>
+  <% @instruments.each do |instrument| %>
+  <tr>
+    <td><%= instrument.type_of %></td>
+    <td><%= instrument.make %></td>
+    <td><%= instrument.model %></td>
+    <td><%= instrument.status %></td>
+    <td><%= instrument.status_comments %></td>
+    <td>
+      <p><a href="/instruments/<%= instrument.id %>/edit">Edit Instrument</a></p>
+    </td>
+  </tr>
+  <% end %>
+
+</table><br />
+
+<p><a href="/instruments/new">Add Another Instrument</a></p>
+<p><a href='/logout'>Logout</a></p>
