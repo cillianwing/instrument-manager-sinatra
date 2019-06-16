@@ -1,29 +1,29 @@
-<table style="width:100%">
+<h2>Instruments</h2>
 
-  <tr>
-    <th>Type</th>
-    <th>Make</th>
-    <th>Model</th>
-    <th>Status</th>
-    <th>Status Comments</th>
-    <th>Options</th>
-  </tr>
-  <% @instruments.each do |instrument| %>
-  <tr>
-    <td><%= instrument.type_of %></td>
-    <td><%= instrument.make %></td>
-    <td><%= instrument.model %></td>
-    <td><%= instrument.status %></td>
-    <td><%= instrument.status_comments %></td>
-    <td>
-      <p><a href="/instruments/<%= instrument.id %>">View Instrument</a></p>
-      <p><a href="/instruments/<%= instrument.id %>/edit">Edit Instrument</a></p>
-    </td>
-  </tr>
-  <% end %>
+  <h3><a href="/users/<%= @user.id %>">Home</a> - <a href="/instruments/new">Add Another Instrument</a> - <a href="/logout">Logout</a></h3>
 
-</table><br />
+  <table style="width:100%">
 
-<p><a href='/instruments/new'>Add Another Instrument</a></p>
-<p><a href='/users/<%= @user.id =>'>Home</a></p>
-<p><a href='/logout'>Logout</a></p>
+    <tr>
+      <th>Type</th>
+      <th>Make</th>
+      <th>Model</th>
+      <th>Status</th>
+      <th>Status Comments</th>
+      <th>Options</th>
+    </tr>
+    <% @instruments.each do |instrument| %>
+    <tr>
+      <td><%= instrument.type_of %></td>
+      <td><%= instrument.make %></td>
+      <td><%= instrument.model %></td>
+      <td><%= instrument.status %></td>
+      <td><%= instrument.status_comments %></td>
+      <td>
+        <p><a href="/instruments/<%= instrument.id %>">View Instrument</a></p>
+        <p><a href="/instruments/<%= instrument.id %>/edit">Edit Instrument</a></p>
+      </td>
+    </tr>
+    <% end %>
+
+  </table><br />

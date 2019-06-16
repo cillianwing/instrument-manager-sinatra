@@ -1,17 +1,60 @@
-<h2>Below are your instruments and accessories</h2>
+<h2>Instruments</h2>
 
-<h3>Instruments</h3>
-<% @instruments.each do |instrument| %>
-  <li><%= instrument.type_of %></li>
-<% end %><br />
+  <h3><a href="/instruments">View All Instruments Only</a> - <a href="/instruments/new">Add New Instrument</a></h3>
 
-<h3>Accessories</h3>
-<% @accessories.each do |accessory| %>
-  <li><%= accessory.type_of %></li>
-<% end %><br />
+  <table style="width:100%">
+    <tr>
+      <th>Type</th>
+      <th>Make</th>
+      <th>Model</th>
+      <th>Status</th>
+      <th>Status Comments</th>
+      <th>Options</th>
+    </tr>
+    <% @instruments.each do |instrument| %>
+    <tr>
+      <td><%= instrument.type_of %></td>
+      <td><%= instrument.make %></td>
+      <td><%= instrument.model %></td>
+      <td><%= instrument.status %></td>
+      <td><%= instrument.status_comments %></td>
+      <td>
+        <p><a href="/instruments/<%= instrument.id %>">View Instrument</a></p>
+        <p><a href="/instruments/<%= instrument.id %>/edit">Edit Instrument</a></p>
+      </td>
+    </tr>
+  <% end %>
 
-<p><a href="/instruments/new">Add New Instrument</a></p>
-<p><a href="/accessories/new">Add New Accessory</a></p>
-<p><a href="/instruments">View All Instruments</a></p>
-<p><a href="/accessories">View All Accessories</a></p>
+  </table><br />
+
+<h2>Accessories</h2>
+
+  <h3><a href="/accessories">View All Accessories Only</a> - <a href="/accessories/new">Add New Accessory</a></h3>
+
+  <table style="width:100%">
+
+    <tr>
+      <th>Type</th>
+      <th>Make</th>
+      <th>Model</th>
+      <th>Status</th>
+      <th>Status Comments</th>
+      <th>Options</th>
+    </tr>
+    <% @accessories.each do |accessory| %>
+    <tr>
+      <td><%= accessory.type_of %></td>
+      <td><%= accessory.make %></td>
+      <td><%= accessory.model %></td>
+      <td><%= accessory.status %></td>
+      <td><%= accessory.status_comments %></td>
+      <td>
+        <p><a href="/accessories/<%= accessory.id %>">View Accessory</a></p>
+        <p><a href="/accessories/<%= accessory.id %>/edit">Edit Accessory</a></p>
+      </td>
+    </tr>
+    <% end %>
+
+  </table><br />
+
 <p><a href="/logout">Logout</a></p>

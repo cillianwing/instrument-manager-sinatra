@@ -1,29 +1,30 @@
-<table style="width:100%">
+<h2>Accessories</h2>
 
-  <tr>
-    <th>Type</th>
-    <th>Make</th>
-    <th>Model</th>
-    <th>Status</th>
-    <th>Status Comments</th>
-    <th>Options</th>
-  </tr>
-  <% @accessories.each do |accessory| %>
-  <tr>
-    <td><%= accessory.type_of %></td>
-    <td><%= accessory.make %></td>
-    <td><%= accessory.model %></td>
-    <td><%= accessory.status %></td>
-    <td><%= accessory.status_comments %></td>
-    <td>
-      <p><a href="/accessories/<%= accessory.id %>">View Accessory</a></p>
-      <p><a href="/accessories/<%= accessory.id %>/edit">Edit Accessory</a></p>
-    </td>
-  </tr>
-  <% end %>
+  <h3><a href="/users/<%= @user.id %>">Home</a> - <a href='/accessories/new'>Add Another Accessory</a> - <a href="/logout">Logout</a></h3>
 
-</table><br />
 
-<p><a href="/accessories/new">Add Another Accessory</a></p>
-<p><a href='/users/<%= @user.id =>'>Home</a></p>
-<p><a href='/logout'>Logout</a></p>
+  <table style="width:100%">
+
+    <tr>
+      <th>Type</th>
+      <th>Make</th>
+      <th>Model</th>
+      <th>Status</th>
+      <th>Status Comments</th>
+      <th>Options</th>
+    </tr>
+    <% @accessories.each do |accessory| %>
+    <tr>
+      <td><%= accessory.type_of %></td>
+      <td><%= accessory.make %></td>
+      <td><%= accessory.model %></td>
+      <td><%= accessory.status %></td>
+      <td><%= accessory.status_comments %></td>
+      <td>
+        <p><a href="/accessories/<%= accessory.id %>">View Accessory</a></p>
+        <p><a href="/accessories/<%= accessory.id %>/edit">Edit Accessory</a></p>
+      </td>
+    </tr>
+    <% end %>
+
+  </table><br />
