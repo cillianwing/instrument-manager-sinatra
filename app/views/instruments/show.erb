@@ -16,8 +16,11 @@
   </tr>
 
 </table><br />
-<p><a href="/instruments/:id/edit">Edit Instrument</a></p>
-<p><a href="/instruments/:id/delete">Delete Instrument</a></p>
+<form method="POST" action="/instruments/<%= @instrument.id %>/delete">
+  <input type="hidden" id="hidden" name="_method" value="delete" />
+  <input type="submit" value="Delete Instrument" />
+</form>
+<p><a href="/instruments/<%= @instrument.id %>/edit">Edit Instrument</a></p>
 <p><a href="/instruments/new">Add Another Instrument</a></p>
 <p><a href="/instruments">View All Your Instruments</a></p>
 <p><a href='/logout'>Logout</a></p>

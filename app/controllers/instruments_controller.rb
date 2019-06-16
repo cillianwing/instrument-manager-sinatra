@@ -4,7 +4,7 @@ require 'rack-flash'
 class InstrumentsController < ApplicationController
   use Rack::Flash
 
-  get 'instruments' do
+  get '/instruments' do
     if logged_in?
       @user = User.find_by_id(session[:user_id])
       @instruments = @user.instruments
@@ -33,6 +33,18 @@ class InstrumentsController < ApplicationController
     if logged_in?
       @instrument = Instrument.find_by(params[:id])
       erb :'/instruments/show'
+    else
+      redirect '/login'
+    end
+  end
+
+  delete '/instruments/:id/delete' do
+    if logged_in?
+      @instrument = Instrument.find_by(params[:id])
+      if @instrument && @instrument.user_id == current_user.id
+        @instrument.delete
+      end
+      redirect '/instruments'
     else
       redirect '/login'
     end
