@@ -38,7 +38,7 @@ class InstrumentsController < ApplicationController
 
   get '/instruments/:id' do
     if logged_in?
-      @instrument = Instrument.find_by(params[:id])
+      @instrument = current_user.instruments.find_by(params[:id])
       erb :'/instruments/show'
     else
       redirect '/login'
@@ -48,7 +48,7 @@ class InstrumentsController < ApplicationController
   get '/instruments/:id/edit' do
     if logged_in?
       @statuses = ["Usable", "Needs Repair", "In Repair"]
-      @instrument = Instrument.find_by(params[:id])
+      @instrument = current_user.instruments.find_by(params[:id])
       erb :'/instruments/edit'
     else
       redirect '/login'
@@ -57,7 +57,7 @@ class InstrumentsController < ApplicationController
 
   patch '/instruments/:id' do
     if logged_in?
-      @instrument = Instrument.find_by(params[:id])
+      @instrument = current_user.instruments.find_by(params[:id])
       if @instrument && @instrument.user_id == current_user.id
         if @instrument.update(params)
           redirect "/instruments/#{@instrument.id}"
@@ -72,9 +72,18 @@ class InstrumentsController < ApplicationController
     end
   end
 
-  delete '/instruments/:id/delete' do
+  get '/instruments/:id/delete' do
     if logged_in?
-      @instrument = Instrument.find_by(params[:id])
+      @instrument = current_user.instruments.find_by(params[:id])
+      erb :'/instruments/delete'
+    else
+      redirect '/login'
+    end
+  end
+
+  delete '/instruments/:id' do
+    if logged_in?
+      @instrument = current_user.instruments.find_by(params[:id])
       if @instrument && @instrument.user_id == current_user.id
         @instrument.delete
       end

@@ -6,7 +6,7 @@
   <input type="text" name="model" placeholder="Model:*" required /><br /><br />
   <!-- Status needs to be a radio option. -->
   Status: <% @statuses.each do |status| %>
-    <input type="radio" name="status" value="status"><%= status %></input>
+    <input type="radio" name="status" value="<%= status %>"><%= status %></input>
   <% end %><br /><br />
 
   <input type="text" name="status_comments" id="status_comments" placeholder="Status Comments:" /><br /><br />
