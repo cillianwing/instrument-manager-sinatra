@@ -32,8 +32,7 @@ class RepairsController < ApplicationController
 
   post '/repairs' do
     if logged_in?
-      @repair = Repair.create(params)
-      @repair.user_id = session[:user_id]
+      @repair = current_user.repairs.create(params)
       if @repair.save
         redirect "/repairs/#{@repair.id}"
       else
@@ -54,11 +53,28 @@ class RepairsController < ApplicationController
   end
 
   get '/repairs/:id/edit' do
-
+    if logged_in?
+      @statuses = ["Not Started", "In Progress", "Complete"]
+      @repair = Repair.find_by_id(params[:id])
+      erb :"/repairs/edit"
+    else
+      redirect '/login'
+    end
   end
 
   patch '/repairs/:id' do
-
+    if logged_in?
+      @repair = Repair.find_by_id(params[:id])
+      if @repair && @repair.user_id == session[:user_id]
+        if @repair.update(status: params[:status])
+          erb :'/repairs/show'
+        else
+          redirect "/repairs/#{@repair.id}/edit"
+        end
+      end
+    else
+      redirect '/login'
+    end
   end
 
   get '/repairs/:id/complete' do

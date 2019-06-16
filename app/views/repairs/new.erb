@@ -9,7 +9,7 @@
       <% end %>
     </select><br /><br />
   <input type="text" name="work" placeholder="Work Being Done:*" required /><br /><br />
-  <input type="number" name="cost" placeholder="Cost:*" required /><br /><br />
+  <input type="number" name="cost" placeholder="Cost($):*" required /><br /><br />
   Status*: <% @statuses.each do |status| %>
     <input type="radio" name="status" value="<%= status %>"><%= status %></input>
   <% end %><br /><br />
