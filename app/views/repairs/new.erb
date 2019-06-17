@@ -5,7 +5,7 @@
   <label>Item List</label>
     <select name="item_name">
       <% @items.each do |item| %>
-        <option value="<%= item[:name] %>"><%= item[:name] %></option>
+        <option value="<%= item[:name] %>" <%= params[:item_type] = item[:type_of] if 'checked' %>><%= item[:name] %></option>
       <% end %>
     </select><br /><br />
   <input type="text" name="work" placeholder="Work Being Done:*" required /><br /><br />

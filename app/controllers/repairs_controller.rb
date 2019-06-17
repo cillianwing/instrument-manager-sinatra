@@ -22,7 +22,7 @@ class RepairsController < ApplicationController
       @items = []
       @instruments.collect do |instrument|
         if instrument.status != "In Repair"
-          @items << {name: "#{instrument.make} - #{instrument.model} (#{instrument.type_of})", instrument_id: instrument.id}
+          @items << {name: "#{instrument.make} - #{instrument.model} (#{instrument.type_of})", instrument_id: instrument.id, type_of: instrument.type_of}
         end
       end
       erb :'/repairs/new'
@@ -33,7 +33,7 @@ class RepairsController < ApplicationController
 
   post '/repairs' do
     if logged_in?
-      #binding.pry
+      binding.pry
       @repair = current_user.repairs.build(params)
       if @repair.save
         redirect "/repairs/#{@repair.id}"
