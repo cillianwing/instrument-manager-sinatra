@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190616180843) do
+ActiveRecord::Schema.define(version: 20190617004808) do
 
   create_table "accessories", force: :cascade do |t|
     t.string   "make"
@@ -31,13 +31,6 @@ ActiveRecord::Schema.define(version: 20190616180843) do
   end
 
   add_index "ar_internal_metadata", ["key"], name: "sqlite_autoindex_ar_internal_metadata_1", unique: true
-
-  create_table "instrument_accessories", force: :cascade do |t|
-    t.integer  "instrument_id"
-    t.integer  "accessory_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-  end
 
   create_table "instruments", force: :cascade do |t|
     t.string   "make"
