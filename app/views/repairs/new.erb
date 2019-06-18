@@ -2,22 +2,19 @@
 
 <form method="POST" action="/repairs">
 
-  <label>Item List</label>
-    <select name="item_name">
-      <% @items.each do |item| %>
-        <option value="<%= item[:name] %>" <%= params[:item_type] = item[:type_of] if 'checked' %>><%= item[:name] %></option>
-      <% end %>
-    </select><br /><br />
-  <input type="text" name="work" placeholder="Work Being Done:*" required /><br /><br />
-  <input type="number" name="cost" placeholder="Cost($):*" required /><br /><br />
-  Status*: <% @statuses.each do |status| %>
-    <input type="radio" name="status" value="<%= status %>"><%= status %></input>
-  <% end %><br /><br />
-
-  <input type="text" name="duration" placeholder="Duration (in days)*:" required /><br /><br />
-  <label>Start Date: </label><input type="date" name="start_date" placeholder="Start Date:*" required /><br /><br />
+  <p>Item Category: <%= @item.class.to_s %> (<%= @item.type_of %>)</p>
+  <p>Item Name: <%= @item.make %> <%= @item.model %></p>
+  <p><label>Work: </label><input type="text" name="work" placeholder="Work Being Done:*" required /></p>
+  <p><label>Cost: </label><input type="number" name="cost" placeholder="Cost($):*" required /></p>
+  <label>Status: </label><select name="status">
+    <% @statuses.each do |status| %>
+      <option value="<%= status %>"><%= status %></option>
+    <% end %>
+  </select><br />
+  <p><label>Duration: </label><input type="text" name="duration" placeholder="Duration (in days)*:" required /></p>
+  <p><label>Start Date: </label><input type="date" name="start_date" placeholder="Start Date:*" required /><br /><br /></p>
   <input type="submit" value="Add New Repair" />
+
 </form>
 
 <br />
-<p>Fields marked with (*) are required.</p>

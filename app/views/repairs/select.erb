@@ -1,0 +1,28 @@
+<h2>Please select the item for which you would like to initiate a repair.</h2>
+
+<form method="POST" action="/repairs/select">
+  <table style="width:100%">
+
+    <tr>
+      <th>Selection</th>
+      <th>Type</th>
+      <th>Make</th>
+      <th>Model</th>
+      <th>Status</th>
+      <th>Status Comments</th>
+    </tr>
+    <% @items.each do |item| %>
+      <% if item.status != "In Repair" %>
+        <tr>
+          <td><input type="radio" name="item_id" value="<%= item.id %>" /></td>
+          <td><%= item.type_of %></td>
+          <td><%= item.make %></td>
+          <td><%= item.model %></td>
+          <td><%= item.status %></td>
+          <td><%= item.status_comments %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </table><br />
+  <input type="submit" value="Select Item to Repair" />
+</form>
