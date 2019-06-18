@@ -1,6 +1,6 @@
 <h2>Accessories</h2>
 
-  <h3><a href="/users/<%= @user.id %>">Home</a> - <a href='/accessories/new'>Add Another Accessory</a> - <a href="/logout">Logout</a></h3>
+  <h3><a href="/users/<%= current_user.id %>">Home</a> - <a href='/accessories/new'>Add Another Accessory</a> - <a href="/logout">Logout</a></h3>
 
 
   <table style="width:100%">
@@ -31,5 +31,5 @@
 
 <p><a href="/accessories/new">Add Another Accessory</a></p>
 <p><a href="/repairs">View Ongoing Repairs</a></p>
-<p><a href='/users/<%= @accessory.user_id %>'>Home</a></p>
+<p><a href='/users/<%= current_user.id %>'>Home</a></p>
 <p><a href='/logout'>Logout</a></p>

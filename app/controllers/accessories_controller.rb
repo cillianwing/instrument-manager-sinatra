@@ -6,8 +6,7 @@ class AccessoriesController < ApplicationController
 
   get '/accessories' do
     if logged_in?
-      @user = User.find_by_id(session[:user_id])
-      @accessories = @user.accessories
+      @accessories = current_user.accessories
       erb :'/accessories/index'
     else
       redirect '/login'
@@ -15,7 +14,7 @@ class AccessoriesController < ApplicationController
   end
 
   get '/accessories/new' do
-    @statuses = ["Useable", "Needs Repair", "In Repair", "On Loan"]
+    @statuses = ["Useable", "Needs Repair", "In Repair"]
     if logged_in?
       erb :'/accessories/new'
     else
