@@ -6,8 +6,7 @@ class RepairsController < ApplicationController
 
   get '/repairs' do
     if logged_in?
-      @repairs = Repair.all
-      @user = User.find_by_id(current_user.id)
+      @repairs = current_user.repairs
       erb :'/repairs/index'
     else
       '/login'

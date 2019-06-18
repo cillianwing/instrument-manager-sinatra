@@ -1,6 +1,6 @@
 <h2>Instruments</h2>
 
-  <h3><a href="/users/<%= @user.id %>">Home</a> - <a href="/instruments/new">Add Another Instrument</a> - <a href="/logout">Logout</a></h3>
+  <h3><a href="/users/<%= current_user.id %>">Home</a> - <a href="/instruments/new">Add Another Instrument</a> - <a href="/logout">Logout</a></h3>
 
   <table style="width:100%">
 
@@ -30,5 +30,5 @@
 
 <p><a href="/instruments/new">Add Another Instrument</a></p>
 <p><a href="/repairs">View Ongoing Repairs</a></p>
-<p><a href='/users/<%= @instrument.user_id %>'>Home</a></p>
+<p><a href='/users/<%= current_user.id %>'>Home</a></p>
 <p><a href='/logout'>Logout</a></p>

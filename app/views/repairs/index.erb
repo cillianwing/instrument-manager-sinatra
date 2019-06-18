@@ -1,26 +1,29 @@
 <h2>Repairs</h2>
 
-  <h3><a href="/users/<%= @user.id %>">Home</a> - <a href="/repairs/new">Add Another Repair</a> - <a href="/logout">Logout</a></h3>
+  <h3><a href="/users/<%= current_user.id %>">Home</a> - <a href="/repairs/new">Add Another Repair</a> - <a href="/logout">Logout</a></h3>
 
   <table style="width:100%">
 
     <tr>
+      <th>Item Type</th>
       <th>Item Name</th>
       <th>Work</th>
       <th>Cost</th>
       <th>Status</th>
       <th>Duration</th>
       <th>Start Date</th>
+      <th>Estimated Completion Date</th>
     </tr>
     <% @repairs.each do |repair| %>
     <tr>
+      <td><%= repair.item_type %></td>
       <td><%= repair.item_name %></td>
       <td><%= repair.work %></td>
       <td><%= repair.cost %></td>
       <td><%= repair.status %></td>
       <td><%= repair.duration %></td>
       <td><%= repair.start_date %></td>
-      <td>
+      <td>start_date + duration</td>
         <p><a href="/repairs/<%= repair.id %>">View Repair</a></p>
         <p><a href="/repairs/<%= repair.id %>/edit">Edit Repair</a></p>
       </td>

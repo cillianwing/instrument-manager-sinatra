@@ -6,8 +6,7 @@ class InstrumentsController < ApplicationController
 
   get '/instruments' do
     if logged_in?
-      @user = User.find_by_id(session[:user_id])
-      @instruments = @user.instruments
+      @instruments = current_user.instruments
       erb :'/instruments/index'
     else
       redirect '/login'
