@@ -1,6 +1,6 @@
 class Repair < ActiveRecord::Base
-  has_one :instrument
-  has_one :accessories
+  has_many :instruments
+  has_many :accessories
   belongs_to :user
 
 end
