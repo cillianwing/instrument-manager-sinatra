@@ -13,6 +13,10 @@
   </select><br />
   <p><label>Duration: </label><input type="text" name="duration" placeholder="Duration (in days)*:" required /></p>
   <p><label>Start Date: </label><input type="date" name="start_date" placeholder="Start Date:*" required /><br /><br /></p>
+
+  <input type="hidden" name="item_type" value="<%= @item.class.to_s %> (<%= @item.type_of %>)">
+  <input type="hidden" name="item_name" value="<%= @item.make %> <%= @item.model %>">
+
   <input type="submit" value="Add New Repair" />
 
 </form>

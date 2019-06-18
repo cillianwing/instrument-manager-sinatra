@@ -43,6 +43,7 @@ class RepairsController < ApplicationController
 
   post '/repairs' do
     if logged_in?
+      binding.pry
       @repair = current_user.repairs.build(params)
       if @repair.save
         redirect "/repairs/#{@repair.id}"
