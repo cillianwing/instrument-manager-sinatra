@@ -76,6 +76,7 @@ class RepairsController < ApplicationController
           if instrument.id == @item.id
             instrument.status = "In Repair"
             instrument.status_comments = "In Repair: #{@repair.work}"
+            instrument.save
           end
         end
       elsif @item.class.to_s == "Accessory"
@@ -83,6 +84,7 @@ class RepairsController < ApplicationController
           if accessory.id == @item.id
             accessory.status = "In Repair"
             accessory.status_comments = "In Repair: #{@repair.work}"
+            accessory.save
           end
         end
       end
@@ -139,6 +141,7 @@ class RepairsController < ApplicationController
           if instrument.id == @item.id
             instrument.status = "Useable"
             instrument.status_comments = "Repair complete - ready to jam!"
+            instrument.save
           end
         end
       elsif @item.class.to_s == "Accessory"
@@ -146,6 +149,7 @@ class RepairsController < ApplicationController
           if accessory.id == @item.id
             accessory.status = "Useable"
             accessory.status_comments = "Repair complete - ready to jam!"
+            accessory.save
           end
         end
       end
