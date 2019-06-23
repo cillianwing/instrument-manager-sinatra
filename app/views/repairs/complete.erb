@@ -1,0 +1,26 @@
+<h2>Are you sure this repair is complete?</h2>
+
+<table style="width:100%">
+
+  <tr>
+    <th>Repair Item</th>
+    <th>Work Being Done</th>
+    <th>Cost</th>
+    <th>Repair Duration</th>
+    <th>Start Date</th>
+  </tr>
+  <tr>
+    <td><%= @repair.item_name %></td>
+    <td><%= @repair.work %></td>
+    <td><%= @repair.cost %></td>
+    <td><%= @repair.duration %></td>
+    <td><%= @repair.start_date %></td>
+  </tr>
+
+</table><br />
+
+<form method="POST" action="/repairs/<%= @repair.id %>">
+  <input type="hidden" id="hidden" name="_method" value="delete" />
+  <input type="submit" value="Complete Repair" />
+</form>
+<p><a href="/repairs">Back To Repairs</a></p>

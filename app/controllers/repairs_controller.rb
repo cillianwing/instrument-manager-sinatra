@@ -7,6 +7,11 @@ class RepairsController < ApplicationController
   get '/repairs' do
     if logged_in?
       @repairs = current_user.repairs
+      @repairs.each do |repair|
+        if repair.item_type.nil?
+          repair.clear
+        end
+      end
       erb :'/repairs/index'
     else
       '/login'
@@ -63,9 +68,9 @@ class RepairsController < ApplicationController
         end
       end
       @repair.update(work: params[:work], item_name: params[:item_name], cost: params[:cost], status: params[:status], duration: params[:duration], start_date: params[:start_date], item_type: params[:item_type])
-      @item = current_user.instruments.find_by_id(params[:item_id])
+      @item = current_user.instruments.find_by_id(params[:item_id]) || @item = current_user.accessories.find_by_id(params[:item_id])
       @item.status = "In Repair"
-      @item.status_comments = @repair.work
+      @item.status_comments = "In Repair: #{@repair.work}"
       if @item.class.to_s == "Instrument"
         current_user.instruments.each do |instrument|
           if instrument.id == @item.id
@@ -81,9 +86,8 @@ class RepairsController < ApplicationController
           end
         end
       end
-      binding.pry
       if @repair.save
-        redirect "/repairs/#{@repair.id}"
+        erb :"/repairs/show"
       else
         redirect "/repairs/#{@repair.id}/new"
       end
@@ -92,19 +96,10 @@ class RepairsController < ApplicationController
     end
   end
 
-  get '/repairs/:id' do
-    if logged_in?
-      @repair = Repair.find_by_id(params[:repair_id])
-      erb :'/repairs/show'
-    else
-      redirect '/login'
-    end
-  end
-
   get '/repairs/:id/edit' do
     if logged_in?
-      @statuses = ["Not Started", "In Progress", "Complete"]
-      @repair = Repair.find_by_id(params[:repair_id])
+      @statuses = ["Not Started", "In Progress"]
+      @repair = current_user.repairs.find_by_id(params[:id])
       erb :"/repairs/edit"
     else
       redirect '/login'
@@ -113,7 +108,7 @@ class RepairsController < ApplicationController
 
   patch '/repairs/:id' do
     if logged_in?
-      @repair = Repair.find_by_id(params[:repair_id])
+      @repair = current_user.repairs.find_by_id(params[:id])
       if @repair && @repair.user_id == session[:user_id]
         if @repair.update(status: params[:status])
           erb :'/repairs/show'
@@ -126,17 +121,39 @@ class RepairsController < ApplicationController
     end
   end
 
-  get '/repairs/:repair_id/complete' do
+  get '/repairs/:id/complete' do
     if logged_in?
-      @repair = current_user.repairs.find_by_id(params[:repair_id])
-
+      @repair = current_user.repairs.find_by_id(params[:id])
+      erb :"/repairs/complete"
     else
       redirect '/login'
     end
   end
 
-  delete '/repairs/:repair_id' do
-
+  delete '/repairs/:id' do
+    if logged_in?
+      @repair = current_user.repairs.find_by_id(params[:id])
+      @item = current_user.instruments.find_by_id(@repair[:instrument_id]) || @item = current_user.accessories.find_by_id(@repair[:accessory_id])
+      if @item.class.to_s == "Instrument"
+        current_user.instruments.each do |instrument|
+          if instrument.id == @item.id
+            instrument.status = "Useable"
+            instrument.status_comments = "Repair complete - ready to jam!"
+          end
+        end
+      elsif @item.class.to_s == "Accessory"
+        current_user.accessories.each do |accessory|
+          if accessory.id == @item.id
+            accessory.status = "Useable"
+            accessory.status_comments = "Repair complete - ready to jam!"
+          end
+        end
+      end
+      @repair.destroy
+      redirect '/repairs'
+    else
+      redirect '/login'
+    end
   end
 
 end

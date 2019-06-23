@@ -12,6 +12,7 @@
       <th>Status</th>
       <th>Duration</th>
       <th>Start Date</th>
+      <th>Options</th>
     </tr>
     <% @repairs.each do |repair| %>
     <tr>
@@ -22,8 +23,10 @@
       <td><%= repair.status %></td>
       <td><%= repair.duration %></td>
       <td><%= repair.start_date %></td>
-        <p><a href="/repairs/<%= repair.id %>">View Repair</a></p>
+      <td>
         <p><a href="/repairs/<%= repair.id %>/edit">Edit Repair</a></p>
+        <p><a href="/repairs/<%= repair.id %>/complete">Complete Repair</a></p>
+      </td>
     </tr>
     <% end %>
 
