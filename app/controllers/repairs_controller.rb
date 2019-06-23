@@ -25,8 +25,12 @@ class RepairsController < ApplicationController
   post '/repairs/select' do
     if logged_in?
       @item = current_user.instruments.find_by_id(params[:item_id])
-      # Need to add instrument/accessory object to current_user.repairs
-      redirect "/repairs/#{@item[:id]}/new"
+      if @item.class.to_s == "Instrument"
+        @repair = current_user.repairs.create(instrument_id: params[:item_id])
+      elsif @item.class.to_s == "Accessory"
+        @repair = current_user.repairs.create(accessory_id: params[:item_id])
+      end
+      redirect "/repairs/#{@repair[:id]}/new"
     else
       redirect '/login'
     end
@@ -35,7 +39,12 @@ class RepairsController < ApplicationController
   get '/repairs/:id/new' do
     if logged_in?
       @statuses = ["Not Started", "In Progress", "Complete"]
-      @item = current_user.instruments.find_by_id(params[:id])
+      @repair = current_user.repairs.find_by_id(params[:id])
+      if !@repair[:instrument_id].nil?
+        @item = current_user.instruments.find_by_id(@repair[:instrument_id])
+      elsif !@repair[:accessory_id].nil?
+        @item = current_user.accessories.find_by_id(@repair[:accessory_id])
+      end
       erb :'/repairs/new'
     else
       redirect '/login'
