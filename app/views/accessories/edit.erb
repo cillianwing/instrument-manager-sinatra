@@ -7,7 +7,7 @@
 <form method="POST" action="/accessories/<%= @accessory.id %>">
   <input id="hidden" type="hidden" name="_method" value="PATCH" />
   Status: <% @statuses.each do |status| %>
-    <input type="radio" name="status" value="<%= status %>" <%='checked' if @accessory.status == status %>><%= status %></input>
+    <input type="radio" name="status" value="<%= status %>" <%='checked' if @accessory.status == status %> required><%= status %></input>
   <% end %><br /><br />
   Update Status Comments:
   <input type="text" name="status_comments" id="status_comments" placeholder="Update Status Comments:" required /><br /><br />
