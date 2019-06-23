@@ -8,7 +8,7 @@
   <p><label>Cost: </label><input type="number" name="cost" placeholder="Cost($):*" required /></p>
   <label>Status: </label><select name="status">
     <% @statuses.each do |status| %>
-      <option value="<%= status %>"><%= status %></option>
+        <option value="<%= status %>"><%= status %></option>
     <% end %>
   </select><br />
   <p><label>Duration: </label><input type="text" name="duration" placeholder="Duration (in days)*:" required /></p>
@@ -16,6 +16,7 @@
 
   <input type="hidden" name="item_type" value="<%= @item.class.to_s %> (<%= @item.type_of %>)">
   <input type="hidden" name="item_name" value="<%= @item.make %> <%= @item.model %>">
+  <input type="hidden" name="item_id" value="<%= @item.id %>">
 
   <input type="submit" value="Add New Repair" />
 
