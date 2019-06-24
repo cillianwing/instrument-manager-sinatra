@@ -6,6 +6,7 @@ This Sinatra-based web app
 
 Please type the below, navigate to the browser, and begin using the instrument manager app.
 
+    $ bundle install
     $ rake db:migrate
     $ shotgun
 
