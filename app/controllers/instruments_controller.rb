@@ -42,7 +42,7 @@ class InstrumentsController < ApplicationController
 
   get '/instruments/:id/edit' do
     if logged_in?
-      @statuses = ["Usable", "Needs Repair", "In Repair"]
+      @statuses = ["Useable", "Needs Repair", "In Repair"]
       @instrument = Instrument.find_by_id(params[:id])
       erb :'/instruments/edit'
     else

@@ -42,7 +42,7 @@ class AccessoriesController < ApplicationController
 
   get '/accessories/:id/edit' do
     if logged_in?
-      @statuses = ["Usable", "Needs Repair", "In Repair"]
+      @statuses = ["Useable", "Needs Repair", "In Repair"]
       @accessory = Accessory.find_by_id(params[:id])
       erb :'/accessories/edit'
     else

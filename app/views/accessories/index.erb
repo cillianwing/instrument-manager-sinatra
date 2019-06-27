@@ -25,7 +25,7 @@
       <td><%= accessory.status_comments %></td>
       <td>
         <p><a href="/accessories/<%= accessory.id %>">View Accessory</a></p>
-        <% if !accessory.status == "In Repair" %>
+        <% if accessory.status != "In Repair" %>
           <p><a href="/accessories/<%= accessory.id %>/edit">Edit Accessory</a></p>
         <% end %>
       </td>
