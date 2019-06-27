@@ -22,7 +22,9 @@
       <td><%= instrument.status_comments %></td>
       <td>
         <p><a href="/instruments/<%= instrument.id %>">View Instrument</a></p>
-        <p><a href="/instruments/<%= instrument.id %>/edit">Edit Instrument</a></p>
+        <% if instrument.status != "In Repair" %>
+          <p><a href="/instruments/<%= instrument.id %>/edit">Edit Instrument</a></p>
+        <% end %>
       </td>
     </tr>
   <% end %>
@@ -52,7 +54,9 @@
       <td><%= accessory.status_comments %></td>
       <td>
         <p><a href="/accessories/<%= accessory.id %>">View Accessory</a></p>
-        <p><a href="/accessories/<%= accessory.id %>/edit">Edit Accessory</a></p>
+        <% if accessory.status != "In Repair" %>
+          <p><a href="/accessories/<%= accessory.id %>/edit">Edit Accessory</a></p>
+        <% end %>
       </td>
     </tr>
     <% end %>

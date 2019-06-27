@@ -1,8 +1,4 @@
-require 'sinatra/base'
-require 'rack-flash'
-
 class InstrumentsController < ApplicationController
-  use Rack::Flash
 
   get '/instruments' do
     if logged_in?
@@ -84,7 +80,7 @@ class InstrumentsController < ApplicationController
     if logged_in?
       @instrument = Instrument.find_by_id(params[:id])
       if @instrument && @instrument.user_id == current_user.id
-        @instrument.delete
+        @instrument.destroy
       end
       redirect '/instruments'
     else

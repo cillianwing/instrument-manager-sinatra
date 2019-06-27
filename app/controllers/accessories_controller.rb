@@ -1,8 +1,4 @@
-require 'sinatra/base'
-require 'rack-flash'
-
 class AccessoriesController < ApplicationController
-  use Rack::Flash
 
   get '/accessories' do
     if logged_in?
@@ -84,7 +80,7 @@ class AccessoriesController < ApplicationController
     if logged_in?
       @accessory = Accessory.find_by_id(params[:id])
       if @accessory && @accessory.user_id == current_user.id
-        @accessory.delete
+        @accessory.destroy
       end
       redirect '/accessories'
     else

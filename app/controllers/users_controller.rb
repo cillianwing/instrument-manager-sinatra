@@ -1,8 +1,4 @@
-require 'sinatra/base'
-require 'rack-flash'
-
 class UsersController < ApplicationController
-  use Rack::Flash
 
   get '/signup' do
     if !logged_in?
@@ -41,6 +37,7 @@ class UsersController < ApplicationController
       redirect "/users/#{user.id}"
     else
       #flash message saying username not found or incorrect password
+      #flash[:error] = "Incorrect username or password."
       redirect '/login'
     end
   end
