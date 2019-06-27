@@ -25,15 +25,18 @@ class RepairsController < ApplicationController
 
   post '/repairs/select' do
     if logged_in?
-      if params[:item_class] == "Instrument"
-        @item = current_user.instruments.find_by_id(params[:item_id])
-      elsif params[:item_class] == "Accessory"
-        @item = current_user.accessories.find_by_id(params[:item_id])
+      @params_split = params[:item].split(", ")
+      @split_id = @params_split[0]
+      @split_cat = @params_split[1]
+      if @split_cat == "Instrument"
+        @item = current_user.instruments.find_by_id(@split_id)
+      elsif @split_cat == "Accessory"
+        @item = current_user.accessories.find_by_id(@split_id)
       end
       if @item.class.to_s == "Instrument"
-        @repair = current_user.repairs.create(instrument_id: params[:item_id])
+        @repair = current_user.repairs.create(instrument_id: @split_id)
       elsif @item.class.to_s == "Accessory"
-        @repair = current_user.repairs.create(accessory_id: params[:item_id])
+        @repair = current_user.repairs.create(accessory_id: @split_id)
       end
       redirect "/repairs/#{@repair[:id]}/new"
     else
