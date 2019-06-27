@@ -20,6 +20,7 @@
           <td><%= item.model %></td>
           <td><%= item.status %></td>
           <td><%= item.status_comments %></td>
+          <input type="hidden" name="item_class" value="<%= item.class.to_s %>">
         </tr>
       <% end %>
     <% end %>

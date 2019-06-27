@@ -25,7 +25,11 @@ class RepairsController < ApplicationController
 
   post '/repairs/select' do
     if logged_in?
-      @item = current_user.instruments.find_by_id(params[:item_id])
+      if params[:item_class] == "Instrument"
+        @item = current_user.instruments.find_by_id(params[:item_id])
+      elsif params[:item_class] == "Accessory"
+        @item = current_user.accessories.find_by_id(params[:item_id])
+      end
       if @item.class.to_s == "Instrument"
         @repair = current_user.repairs.create(instrument_id: params[:item_id])
       elsif @item.class.to_s == "Accessory"
