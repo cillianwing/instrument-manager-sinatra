@@ -1,6 +1,6 @@
 # Instrument Manager
 
-This Sinatra-based web app
+This Sinatra-based web app helps a user manage their musical instruments and accessories. The user is able to manage their instruments/accessories by creating new ones, editing condition/status/etc. of existing ones, and deleting ones from their inventory. Additionally, the user is able to manage instruments/accessories that are being repaired. The repair feature allows the user to monitor the status, cost, duration, and more.
 
 ## Usage
 
